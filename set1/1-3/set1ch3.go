@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bytes"
 	"encoding/hex"
-	"fmt"
 	"github.com/Melvillian/cryptopals/lib"
 )
 
@@ -14,9 +12,7 @@ func main() {
 		panic(err)
 	}
 
-	probableHexByte := lib.TryAllHexCharDecryptions(hexBytes)
+	_, xoredBytes, _ := lib.TryAllHexCharDecryptions(hexBytes)
 
-	xorBytes := bytes.Repeat([]byte{probableHexByte}, len(hexBytes))
-	xoredBytes := lib.XorBytes(hexBytes, xorBytes)
-	fmt.Println(string(xoredBytes))
+	lib.PrintComparisons("Cooking MC's like a pound of bacon", string(xoredBytes))
 }

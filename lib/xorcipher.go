@@ -5,32 +5,36 @@ import (
 	"strings"
 )
 
-var freqMap = make(map[string]float64)
+var freqMap = map[string]float64{
+	"a": 5, "b": 1.5, "c": 2.8, "d": 4.3, "e": 12.7, "f": 2.2, "g": 2, "h": 6.1, "i": 7.0, "j": 0.2, "k": 0.8, "l": 4, "m": 2.4,
+	"n": 6.7, "o": 7.5, "p": 1.9, "q": 0.1, "r": 6, "s": 6.3, "t": 9.1, "u": 2.8, "v": 1, "w": 2.4, "x": 0.2, "y": 2, "z": 0.1,
+	" ": 5,
+}
 
 // TryAllHexCharDecryptions finds the most likely character with which to XOR the given byte slice
 // such that the result of the XOR will be an english sentence
-func TryAllHexCharDecryptions(hexBytes []byte) byte {
-	buildFrequencyMap()
-
+func TryAllHexCharDecryptions(hexBytes []byte) (byte, []byte, float64) {
 	bestChar := byte(0)
 	bestScore := 0.0
+	var bestXorBytes []byte
 
 	for b := byte(30); b < byte(130); b++ {
 		xorBytes := bytes.Repeat([]byte{b}, len(hexBytes))
 		xoredBytes := XorBytes(hexBytes, xorBytes)
-		score := scoreText(xoredBytes)
+		score := ScoreText(xoredBytes)
 
 		if score > bestScore {
 			bestScore = score
 			bestChar = b
+			bestXorBytes = xoredBytes
 		}
 	}
 
-	return bestChar
+	return bestChar, bestXorBytes, bestScore
 }
 
 // scoreText gets the score of the given text according to its word-frequency count
-func scoreText(text []byte) float64 {
+func ScoreText(text []byte) float64 {
 	var score float64 = 0.0
 
 	for _, char := range text {
@@ -39,35 +43,4 @@ func scoreText(text []byte) float64 {
 		}
 	}
 	return score
-}
-
-// buildFrequencyMap sets word frequency percentages based on https://en.wikipedia.org/wiki/Letter_frequency
-func buildFrequencyMap() {
-	freqMap["a"] = 8.167
-	freqMap["b"] = 1.492
-	freqMap["c"] = 2.782
-	freqMap["d"] = 4.253
-	freqMap["e"] = 12.702
-	freqMap["f"] = 2.228
-	freqMap["g"] = 2.015
-	freqMap["h"] = 6.094
-	freqMap["i"] = 6.966
-	freqMap["j"] = 0.153
-	freqMap["k"] = 0.772
-	freqMap["l"] = 4.025
-	freqMap["m"] = 2.406
-	freqMap["n"] = 6.749
-	freqMap["o"] = 7.507
-	freqMap["p"] = 1.929
-	freqMap["q"] = 0.095
-	freqMap["r"] = 5.987
-	freqMap["s"] = 6.327
-	freqMap["t"] = 9.056
-	freqMap["u"] = 2.758
-	freqMap["v"] = 0.978
-	freqMap["w"] = 2.360
-	freqMap["x"] = 0.150
-	freqMap["y"] = 1.974
-	freqMap["z"] = 0.074
-	freqMap[" "] = 13.00
 }
