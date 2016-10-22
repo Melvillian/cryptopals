@@ -1,8 +1,8 @@
 package lib
 
 import (
-	"strings"
 	"bytes"
+	"strings"
 )
 
 var freqMap = make(map[string]float64)
@@ -31,7 +31,7 @@ func TryAllHexCharDecryptions(hexBytes []byte) byte {
 
 // scoreText gets the score of the given text according to its word-frequency count
 func scoreText(text []byte) float64 {
-	var score float64 =  0.0
+	var score float64 = 0.0
 
 	for _, char := range text {
 		if value, exists := freqMap[strings.ToLower(string(char))]; exists {
@@ -43,7 +43,7 @@ func scoreText(text []byte) float64 {
 
 // buildFrequencyMap sets word frequency percentages based on https://en.wikipedia.org/wiki/Letter_frequency
 func buildFrequencyMap() {
-	freqMap["a"]  = 8.167
+	freqMap["a"] = 8.167
 	freqMap["b"] = 1.492
 	freqMap["c"] = 2.782
 	freqMap["d"] = 4.253
