@@ -9,3 +9,10 @@ import (
 func PrintComparisons(expected string, actual string) {
 	fmt.Println("Expected: " + expected + "\nActual:   " + actual)
 }
+
+// CheckAbort checks if an error exists, and if so ends the process
+func CheckAbort(err error) {
+	if err != nil {
+		panic(err)
+	}
+}

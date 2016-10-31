@@ -12,11 +12,9 @@ func main() {
 	// open file
 	fi, err := os.Open("4.txt")
 	defer fi.Close()
+	lib.CheckAbort(err)
 
 	// create scanner
-	if err != nil {
-		panic(err)
-	}
 	scanner := bufio.NewScanner(fi)
 
 	bestScore := float64(0)
@@ -25,9 +23,7 @@ func main() {
 		// read line
 		hexString := scanner.Text()
 		hexBytes, err := hex.DecodeString(hexString)
-		if err != nil {
-			panic(err)
-		}
+		lib.CheckAbort(err)
 
 		// get best guess at single XOR byte, and get that score
 		_, bestXorBytes, score := lib.TryAllHexCharDecryptions(hexBytes)
