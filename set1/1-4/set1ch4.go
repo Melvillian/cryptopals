@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// Detect single-character XOR
 func main() {
 	// open file
 	fi, err := os.Open("4.txt")

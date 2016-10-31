@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// assume base64 data is longer than 1 byte
+// Break repeating-key XOR
 func main() {
 	// read in file data and decode from base64
 	rawBytes, err := ioutil.ReadFile("6.txt")

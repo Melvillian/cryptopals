@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 )
 
+// Implement repeating-key XOR
 func main() {
 	hexBytes := []byte("Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal")
 	ciphertext := lib.RepeatedXor(hexBytes, []byte("ICE"))
